@@ -38,7 +38,25 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    
+        MORSE_TABLE[""] = " ";
+      
+        let result = "";
+        
+        let arr = expr.match(/.{1,10}/g);
+        
+        arr.map(letter => {
+            const arr_with_zeros = letter.match(/.{1,2}/g);
+            const arr_with_morses = arr_with_zeros.map((char)=>{
+                if(char === "10") {return "."} 
+                if(char === "00" || char === "**") {return " "}
+                if(char === "11") {return "-"}
+            });
+     
+            result += MORSE_TABLE[arr_with_morses.join("").trim()];
+        })
+        return result;
+      
 }
 
 module.exports = {
